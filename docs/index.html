@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>BucketPulse | S3 Freshness & Health</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --muted: #9ca3af;
+      --text: #e5e7eb;
+      --accent: #7c3aed;
+      --accent-soft: rgba(124,58,237,0.12);
+      --border: #1f2937;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at 20% 20%, rgba(124,58,237,0.08), transparent 30%), radial-gradient(circle at 80% 0%, rgba(59,130,246,0.08), transparent 25%), var(--bg);
+      color: var(--text);
+    }
+    .shell { max-width: 1100px; margin: 0 auto; padding: 32px 20px 64px; }
+    header { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+    .brand { display:flex; align-items:center; gap:12px; }
+    .brand img { width:42px; height:42px; }
+    h1 { margin:0; font-size:32px; }
+    h2 { margin:12px 0 6px; }
+    p { margin:0 0 10px; color: var(--muted); line-height:1.6; }
+    .pill { display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border-radius:999px; background: var(--accent-soft); color: var(--text); border:1px solid var(--accent); font-weight:600; }
+    .cta { display:inline-flex; align-items:center; gap:8px; padding:12px 16px; border-radius:12px; background: var(--accent); color:#fff; text-decoration:none; font-weight:600; box-shadow:0 10px 30px rgba(124,58,237,0.3); }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; margin:24px 0; }
+    .card { background: var(--card); border:1px solid var(--border); border-radius:16px; padding:18px; box-shadow:0 15px 30px rgba(0,0,0,0.18); }
+    .list { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; }
+    .list li { display:flex; gap:10px; align-items:flex-start; }
+    .dot { width:10px; height:10px; border-radius:50%; background: var(--accent); margin-top:7px; }
+    .screens h3 { margin:0 0 4px; }
+    footer { margin-top:30px; color: var(--muted); font-size:14px; }
+    .meta { display:flex; gap:10px; flex-wrap:wrap; }
+    code { background: #1f2937; padding:2px 6px; border-radius:6px; color:#c4b5fd; }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="brand">
+        <img src="https://raw.githubusercontent.com/your-org/your-repo/main/assets/bucketpulse-logo.svg" alt="BucketPulse logo">
+        <div>
+          <h1>BucketPulse</h1>
+          <p>Near real-time S3 freshness, staleness, and inventory insights.</p>
+        </div>
+      </div>
+      <a class="cta" href="https://github.com/your-org/your-repo">View on GitHub</a>
+    </header>
+
+    <div class="grid">
+      <div class="card">
+        <div class="pill">Serverless • AWS-native</div>
+        <p>Built on API Gateway, Lambda, DynamoDB, S3 Metadata Tables/Athena, and CloudFront. Auth via Cognito Hosted UI (PKCE) or external IdP.</p>
+      </div>
+      <div class="card">
+        <h2>Deploy in one command</h2>
+        <p>CDK provisions infra, generates UI runtime config (<code>env.json</code>), builds Angular, and uploads to S3/CloudFront.</p>
+      </div>
+      <div class="card">
+        <h2>Inventory + Journal aware</h2>
+        <p>Uses S3 Metadata Tables for inventory and journal metrics to compute freshness, staleness, anomalies, and alerts per prefix.</p>
+      </div>
+    </div>
+
+    <div class="card screens">
+      <h2>What you can do</h2>
+      <div class="grid">
+        <div>
+          <h3>Buckets List</h3>
+          <ul class="list">
+            <li><span class="dot"></span><div>Register buckets (prechecks metadata tables), search/filter, and see KPIs.</div></li>
+            <li><span class="dot"></span><div>Click through to bucket details and prefix health.</div></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Bucket Detail</h3>
+          <ul class="list">
+            <li><span class="dot"></span><div>View status, KPIs, recent alerts.</div></li>
+            <li><span class="dot"></span><div>Manage tracked prefixes via modal with validation.</div></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Prefix Health</h3>
+          <ul class="list">
+            <li><span class="dot"></span><div>Status pill/reason, freshness & staleness thresholds, recent alerts.</div></li>
+            <li><span class="dot"></span><div>Evaluation history timeline with pagination; edit prefix thresholds.</div></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Alerts</h3>
+          <ul class="list">
+            <li><span class="dot"></span><div>Filter by severity/type/bucket/prefix/date; paginate results.</div></li>
+            <li><span class="dot"></span><div>Severity pills, resolved flag, links back to prefix health.</div></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Explorer</h3>
+          <ul class="list">
+            <li><span class="dot"></span><div>Filter inventory by bucket/prefix, size/age ranges, storage class, and tags.</div></li>
+            <li><span class="dot"></span><div>See object summaries and open details modal (metadata, tags, copy S3 URI/ETag).</div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>How it works</h2>
+      <ul class="list">
+        <li><span class="dot"></span><div>Aggregation Lambda queries S3 Metadata Tables (inventory + journal) to compute prefix health.</div></li>
+        <li><span class="dot"></span><div>Alerts stored in DynamoDB; optional SNS topic for fanout.</div></li>
+        <li><span class="dot"></span><div>UI loads runtime config from <code>env.json</code> (API base, auth domain, client id, redirect).</div></li>
+      </ul>
+    </div>
+
+    <footer>
+      <div class="meta">
+        <span>Angular + CDK + S3 Metadata Tables</span>
+        <span>Auth: Cognito Hosted UI (PKCE)</span>
+        <span>Deploy: ./scripts/deploy.sh</span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
