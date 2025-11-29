@@ -1,0 +1,42 @@
+.bp-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  background: var(--surface-muted);
+  color: var(--text);
+}
+
+.bp-pill--ok {
+  background: rgba(34, 197, 94, 0.12);
+  border-color: rgba(34, 197, 94, 0.35);
+  color: var(--ok);
+}
+
+.bp-pill--warning {
+  background: rgba(234, 179, 8, 0.12);
+  border-color: rgba(234, 179, 8, 0.35);
+  color: var(--warn);
+}
+
+.bp-pill--critical {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.35);
+  color: var(--crit);
+}
+
+.bp-pill--unknown {
+  background: var(--surface-muted);
+  border-color: var(--border);
+  color: var(--muted);
+}
+
+.bp-pill--neutral {
+  background: var(--surface-muted);
+  border-color: var(--border);
+  color: var(--text);
+}

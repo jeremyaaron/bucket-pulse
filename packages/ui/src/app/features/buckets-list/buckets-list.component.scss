@@ -1,0 +1,135 @@
+.buckets__header {
+  align-items: flex-start;
+}
+
+.buckets__kpi {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 12px 0 16px;
+}
+
+.kpi-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.kpi-card__label {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.kpi-card__value {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.buckets__card {
+  margin-top: 12px;
+}
+
+.buckets__filters {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.buckets__search {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface-muted);
+  color: var(--text);
+}
+
+.buckets__chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface-muted);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.chip--active {
+  background: var(--primary-soft);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.buckets__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.buckets__table th,
+.buckets__table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.buckets__table th {
+  color: var(--muted);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  text-align: left;
+}
+
+.buckets__row {
+  cursor: pointer;
+}
+
+.buckets__row:hover {
+  background: var(--surface-muted);
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.register-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.register-form input {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface-muted);
+  color: var(--text);
+}
+
+.form-hint {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.form-error {
+  color: var(--critical);
+  margin-top: 8px;
+  font-size: 13px;
+}
+
+.empty-state {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}

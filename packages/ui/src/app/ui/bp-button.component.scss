@@ -1,0 +1,35 @@
+.bp-button {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  background: var(--surface-muted);
+  color: var(--text);
+  transition: background 0.15s ease, transform 0.1s ease;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.bp-button--primary {
+  background: var(--primary);
+  color: #0b0d11;
+  border-color: var(--primary);
+}
+
+.bp-button--secondary {
+  background: var(--surface);
+}
+
+.bp-button--ghost {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}

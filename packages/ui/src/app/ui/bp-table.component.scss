@@ -1,0 +1,28 @@
+.bp-table {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+}
+
+th,
+td {
+  padding: 12px 14px;
+  text-align: left;
+}
+
+th {
+  background: var(--surface-muted);
+  color: var(--muted);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+
+tr + tr td {
+  border-top: 1px solid var(--border);
+}

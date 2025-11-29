@@ -1,0 +1,11 @@
+{
+  "BucketPulseStack": {
+    "UserPoolClientId": "594jpd35o90iqkvee7lm6c9ska",
+    "ApiBaseUrl": "https://3xqfdgz7d1.execute-api.us-east-1.amazonaws.com",
+    "UserPoolDomain": "bucketpulsestack-bp",
+    "UserPoolId": "us-east-1_f22q1tniG",
+    "UiBucketName": "bucketpulsestack-uibucket6890e4c3-wknuvvtmrhlp",
+    "CloudFrontDistributionId": "E1ERLZ235WMQ13",
+    "CloudFrontDomainName": "d17l54nh4bicyu.cloudfront.net"
+  }
+}

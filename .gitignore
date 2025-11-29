@@ -1,0 +1,9 @@
+node_modules
+dist
+.turbo
+.DS_Store
+cdk.out
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+ai

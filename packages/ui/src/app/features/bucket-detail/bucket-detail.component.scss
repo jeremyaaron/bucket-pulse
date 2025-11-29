@@ -1,0 +1,123 @@
+.bucket-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin: 12px 0 16px;
+}
+
+.kpi-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.kpi-card__label {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.kpi-card__value {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.pill-inline {
+  margin-left: 8px;
+}
+
+.bucket-panels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+  margin: 8px 0 16px;
+}
+
+.prefix-filters {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.prefix-filters input {
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface-muted);
+  color: var(--text);
+  min-width: 220px;
+}
+
+.prefix-empty {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.prefix-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.prefix-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.prefix-form input,
+.prefix-form textarea {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface-muted);
+  color: var(--text);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.form-hint {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.form-error {
+  color: var(--critical);
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+@media (max-width: 768px) {
+  .section__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .bucket-kpis {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+
+  .bucket-panels {
+    grid-template-columns: 1fr;
+  }
+
+  .prefix-filters {
+    justify-content: stretch;
+  }
+
+  .prefix-filters input {
+    width: 100%;
+  }
+}

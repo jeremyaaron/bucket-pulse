@@ -1,0 +1,30 @@
+<div class="shell">
+  <header class="topbar">
+    <div class="brand">
+      <img class="brand__logo" src="assets/bucketpulse-logo.svg" alt="BucketPulse logo" />
+      <span class="brand__name">{{ title }}</span>
+      <span class="badge">alpha</span>
+    </div>
+    <nav class="topnav">
+      <a routerLink="/buckets" routerLinkActive="active">Buckets</a>
+      <a routerLink="/alerts" routerLinkActive="active">Alerts</a>
+      <a routerLink="/explorer" routerLinkActive="active">Explorer</a>
+    </nav>
+    <div class="topnav topnav--right">
+      <button class="btn btn--ghost" type="button" (click)="onLogin()" *ngIf="!isAuthenticated">Log in</button>
+      <button class="btn btn--ghost" type="button" (click)="onLogout()" *ngIf="isAuthenticated">Log out</button>
+    </div>
+  </header>
+
+  <div class="auth-banner" *ngIf="(authState$ | async)?.loading">
+    Authenticating...
+  </div>
+  <div class="auth-banner auth-banner--error" *ngIf="(authState$ | async)?.error as err">
+    {{ err }}
+  </div>
+
+  <main class="content">
+    <router-outlet />
+  </main>
+  <bp-toast-container />
+</div>

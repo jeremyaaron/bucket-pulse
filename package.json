@@ -1,0 +1,19 @@
+{
+  "name": "bucket-pulse",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm -ws run build",
+    "lint": "npm -ws run lint",
+    "test": "npm -ws run test"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.25"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

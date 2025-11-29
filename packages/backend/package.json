@@ -1,0 +1,26 @@
+{
+  "name": "@bucket-pulse/backend",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "echo \"(lint placeholder)\"",
+    "test": "echo \"(tests pending)\""
+  },
+  "dependencies": {
+    "@aws-sdk/client-athena": "^3.540.0",
+    "@aws-sdk/client-glue": "^3.540.0",
+    "@aws-sdk/client-dynamodb": "^3.540.0",
+    "@aws-sdk/lib-dynamodb": "^3.540.0",
+    "@aws-sdk/client-sns": "^3.540.0",
+    "@aws-sdk/client-eventbridge": "^3.540.0",
+    "@aws-sdk/client-s3": "^3.540.0",
+    "@bucket-pulse/shared": "0.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "@types/aws-lambda": "^8.10.129"
+  }
+}
