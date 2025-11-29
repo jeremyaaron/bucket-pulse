@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>BucketPulse</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand">
+          <div class="brand__logo-placeholder"></div>
+          <span class="brand__name">BucketPulse</span>
+        </div>
+        <nav class="main-nav">
+          <a href="/index.html">Home</a>
+          <!-- <a href="#why">Why BucketPulse</a> -->
+          <a href="/product.html">Product</a>
+          <a href="/architecture.html">Architecture</a>
+          <a href="/use-cases.html">Use cases</a>
+          <a href="https://github.com/" target="_blank">GitHub</a>
+        </nav>
+        <div class="header-cta">
+          <a href="#" class="btn btn--primary">Deploy with CDK</a>
+        </div>
+      </div>
+    </header>
+    <main>
+      <!-- Use cases hero / intro -->
+      <section id="usecases-hero" class="section section--hero">
+        <div class="container">
+          <div class="section-header">
+            <h1 class="section-title">
+              Use cases: where BucketPulse earns its keep
+            </h1>
+            <p class="section-subtitle">
+              BucketPulse is built for the real moments when S3 stops being
+              “just a durable blob store” and becomes a critical piece of your
+              data pipeline, analytics platform, or cost story. These examples
+              show how it helps you catch issues earlier and explain
+              what&rsquo;s happening inside your buckets.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. Detect missing data early -->
+      <section id="missing-data" class="section">
+        <div class="container product-section__grid">
+          <div class="product-section__content">
+            <h2 class="product-section__eyebrow">Use case 1</h2>
+            <h3 class="product-section__title">Detect missing data early</h3>
+            <p class="product-section__body">
+              Your analytics team depends on daily parquet exports landing in S3
+              before the morning dashboards refresh. One week, a silent change
+              to an upstream job causes those exports to stop landing in the
+              <code>analytics-prod/exports/daily/</code> prefix. No one notices
+              for three days&mdash;until executives start asking why the numbers
+              look wrong.
+            </p>
+            <p class="product-section__body">
+              With BucketPulse, that prefix has a defined freshness interval and
+              expected schedule. As soon as the data flow goes quiet outside the
+              warning and critical windows, the prefix health turns amber, then
+              red, and an alert fires long before stale dashboards become a
+              business problem.
+            </p>
+
+            <h4 class="product-section__eyebrow">How BucketPulse helps</h4>
+            <ul class="product-section__bullets">
+              <li>
+                Track per-prefix freshness against expected arrival intervals
+                (e.g., hourly, daily, weekly).
+              </li>
+              <li>
+                Surface prefixes that have gone quiet in the Buckets overview
+                and Prefix health screens.
+              </li>
+              <li>
+                Route freshness alerts via SNS into email, ChatOps, or your
+                incident tooling.
+              </li>
+            </ul>
+
+            <div class="product-section__links">
+              <a href="/product#prefix-health" class="ui-tile__link">
+                See prefix health view →
+              </a>
+              <a href="/architecture#components" class="ui-tile__link">
+                How aggregation works →
+              </a>
+            </div>
+          </div>
+
+          <div class="product-section__visual">
+            <figure class="product-shot-frame">
+              <img
+                src="assets/product-prefix-health.png"
+                alt="Prefix health view showing a red freshness status"
+                class="product-shot"
+              />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Control storage costs by finding cold data -->
+      <section id="storage-costs" class="section section--alt">
+        <div class="container product-section__grid">
+          <div class="product-section__content">
+            <h2 class="product-section__eyebrow">Use case 2</h2>
+            <h3 class="product-section__title">
+              Control storage costs by finding cold data
+            </h3>
+            <p class="product-section__body">
+              Finance keeps flagging “S3: General” as a top contributor to your
+              cloud bill, but no one can say which datasets are actually
+              responsible. The team assumes there&rsquo;s a lot of old, rarely
+              touched data hanging around, but hunting for it across dozens of
+              buckets and prefixes feels like a multi-week Athena project.
+            </p>
+            <p class="product-section__body">
+              BucketPulse aggregates age histograms per prefix and exposes which
+              workloads are quietly building up 90+ day data. Combined with the
+              Explorer, you can drill into any suspicious prefix and confirm
+              exactly what&rsquo;s sitting there before you apply lifecycle
+              rules or archival policies.
+            </p>
+
+            <h4 class="product-section__eyebrow">How BucketPulse helps</h4>
+            <ul class="product-section__bullets">
+              <li>
+                Compute staleness metrics as “percentage of objects older than X
+                days” per prefix.
+              </li>
+              <li>
+                Highlight prefixes with large amounts of long-lived data in
+                Bucket detail and Prefix health views.
+              </li>
+              <li>
+                Use the Explorer to inspect matching objects by age, size,
+                storage class, and tags before applying lifecycle changes.
+              </li>
+            </ul>
+
+            <div class="product-section__links">
+              <a href="/product#buckets" class="ui-tile__link">
+                View buckets &amp; staleness →
+              </a>
+              <a href="/product#explorer" class="ui-tile__link">
+                Explore cold data →
+              </a>
+            </div>
+          </div>
+
+          <div class="product-section__visual">
+            <figure class="product-shot-frame">
+              <img
+                src="assets/product-bucket-detail.png"
+                alt="Bucket detail and explorer highlighting 90+ day cold data"
+                class="product-shot"
+              />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Audit S3 for critical workflows -->
+      <section id="s3-audit" class="section">
+        <div class="container product-section__grid">
+          <div class="product-section__content">
+            <h2 class="product-section__eyebrow">Use case 3</h2>
+            <h3 class="product-section__title">
+              Audit S3 behavior for critical workflows
+            </h3>
+            <p class="product-section__body">
+              S3 sits at the center of your analytics platform: raw events,
+              curated datasets, model features, and exports all flow through a
+              handful of key buckets. When something goes wrong, the question is
+              rarely “did S3 fail?”&mdash;it&rsquo;s “what was supposed to be
+              happening in this bucket, and when did it change?”
+            </p>
+            <p class="product-section__body">
+              BucketPulse gives you a narrative: buckets roll up high-level
+              health, each prefix shows its own freshness and staleness profile,
+              and the alert feed captures anomalies over time. During audits or
+              incident reviews, you can reconstruct what S3 was doing around any
+              time window.
+            </p>
+
+            <h4 class="product-section__eyebrow">How BucketPulse helps</h4>
+            <ul class="product-section__bullets">
+              <li>
+                Use the Buckets overview to identify which workflows rely on
+                which buckets and prefixes.
+              </li>
+              <li>
+                Drill down into Prefix health to see event history, thresholds,
+                and age distribution around an incident.
+              </li>
+              <li>
+                Consult the alert feed as an audit trail of freshness and
+                staleness anomalies across your S3 estate.
+              </li>
+            </ul>
+
+            <div class="product-section__links">
+              <a href="/product#buckets" class="ui-tile__link">
+                Start from buckets overview →
+              </a>
+              <a href="/product#alerts" class="ui-tile__link">
+                Inspect the alert feed →
+              </a>
+            </div>
+          </div>
+
+          <div class="product-section__visual">
+            <figure class="product-shot-frame">
+              <div class="usecase-flow">
+                <div class="usecase-flow__step">
+                  <div class="usecase-flow__label">1. Buckets</div>
+                  <img
+                    src="assets/hero-buckets.png"
+                    alt="Buckets overview with one bucket showing issues"
+                    class="usecase-flow__shot"
+                  />
+                </div>
+
+                <div class="usecase-flow__arrow">→</div>
+
+                <div class="usecase-flow__step">
+                  <div class="usecase-flow__label">2. Prefix health</div>
+                  <img
+                    src="assets/product-prefix-health.png"
+                    alt="Prefix health view during the incident window"
+                    class="usecase-flow__shot"
+                  />
+                </div>
+
+                <div class="usecase-flow__arrow">→</div>
+
+                <div class="usecase-flow__step">
+                  <div class="usecase-flow__label">3. Alerts</div>
+                  <img
+                    src="assets/product-alerts.png"
+                    alt="Alert feed filtered to the affected bucket and time range"
+                    class="usecase-flow__shot"
+                  />
+                </div>
+              </div>
+            </figure>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

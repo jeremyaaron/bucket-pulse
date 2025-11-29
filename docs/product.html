@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>BucketPulse</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand">
+          <div class="brand__logo-placeholder"></div>
+          <span class="brand__name">BucketPulse</span>
+        </div>
+        <nav class="main-nav">
+          <a href="/index.html">Home</a>
+          <!-- <a href="#why">Why BucketPulse</a> -->
+          <a href="/product.html">Product</a>
+          <a href="/architecture.html">Architecture</a>
+          <a href="/use-cases.html">Use cases</a>
+          <a href="https://github.com/" target="_blank">GitHub</a>
+        </nav>
+        <div class="header-cta">
+          <a href="#" class="btn btn--primary">Deploy with CDK</a>
+        </div>
+      </div>
+    </header>
+    <main>
+      <!-- Product hero -->
+      <section id="product-hero" class="section section--hero">
+        <div class="container product-hero">
+          <div class="product-hero__text">
+            <h1 class="product-hero__title">
+              See everything S3 is doing, from buckets to individual prefixes.
+            </h1>
+            <p class="product-hero__subtitle">
+              BucketPulse turns S3 Metadata Tables into a complete view of your
+              S3 landscape&mdash;high-level bucket health, per-prefix behavior,
+              alerts, and inventory exploration, all in one AWS-native UI.
+            </p>
+            <div class="product-hero__actions">
+              <a href="#buckets" class="btn btn--primary"> Explore the UI </a>
+              <a
+                href="https://github.com/jeremyaaron/bucket-pulse"
+                target="_blank"
+                rel="noreferrer"
+                class="btn btn--ghost"
+              >
+                View on GitHub
+              </a>
+            </div>
+          </div>
+
+          <div class="product-hero__visual">
+            <div class="product-hero-composite">
+              <!-- Main buckets overview card -->
+              <div class="composite-card composite-card--main">
+                <!-- For now: placeholder. Replace with <img> later. -->
+                <img
+                  src="assets/hero-buckets.png"
+                  alt="BucketPulse buckets overview"
+                  class="composite-card__image"
+                />
+              </div>
+
+              <!-- Side prefix health card -->
+              <div class="composite-card composite-card--side">
+                <img
+                  src="assets/product-prefix-health.png"
+                  alt="BucketPulse prefix health view"
+                  class="composite-card__image"
+                />
+              </div>
+
+              <!-- Mini alerts/explorer card -->
+              <div class="composite-card composite-card--mini">
+                <img
+                  src="assets/product-alerts.png"
+                  alt="BucketPulse alert feed"
+                  class="composite-card__image"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. Buckets overview -->
+      <section id="buckets" class="section product-section">
+        <div class="container product-section__grid">
+          <div class="product-section__content">
+            <h2 class="product-section__eyebrow">Buckets overview</h2>
+            <h3 class="product-section__title">
+              See every monitored bucket at a glance
+            </h3>
+            <p class="product-section__body">
+              See every monitored bucket in one place with health status,
+              region, tracked prefixes, and last evaluation time. Color-coded
+              pills surface buckets with issues at a glance so you know where to
+              drill in next.
+            </p>
+            <ul class="product-section__bullets">
+              <li>Register buckets and run metadata prechecks.</li>
+              <li>
+                Track KPIs like total objects, total bytes, and alerts in the
+                last 24 hours.
+              </li>
+              <li>
+                Click through to bucket and prefix details in a single step.
+              </li>
+            </ul>
+          </div>
+
+          <div class="product-section__visual">
+            <figure class="product-shot-frame">
+              <img
+                src="assets/hero-buckets.png"
+                alt="BucketPulse buckets overview showing bucket health, prefixes, and alerts"
+                class="product-shot"
+              />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Bucket detail -->
+      <section id="bucket-detail" class="section section--alt product-section">
+        <div class="container product-section__grid">
+          <div class="product-section__content">
+            <h2 class="product-section__eyebrow">Bucket detail</h2>
+            <h3 class="product-section__title">
+              A cockpit for each critical bucket
+            </h3>
+            <p class="product-section__body">
+              Drill into a single bucket to see overall health, active alerts,
+              and a list of all tracked prefixes with their freshness and
+              staleness status. Understand the behavior of a bucket as a whole,
+              not just a flat list of objects.
+            </p>
+            <ul class="product-section__bullets">
+              <li>
+                See aggregated health across all tracked prefixes in the bucket.
+              </li>
+              <li>
+                Inspect core metrics: total objects, total bytes, old data 90+
+                days, and last event time.
+              </li>
+              <li>
+                Review inline alerts and jump straight to prefix health views
+                for deeper analysis.
+              </li>
+            </ul>
+          </div>
+          <div class="product-section__visual">
+            <figure class="product-shot-frame">
+              <img
+                src="assets/product-bucket-detail.png"
+                alt="BucketPulse buckets overview showing bucket health, prefixes, and alerts"
+                class="product-shot"
+              />
+            </figure>
+          </div>
+        </div>
+      </section>
+      <!-- 3. Prefix health -->
+      <section id="prefix-health" class="section product-section">
+        <div class="container product-section__grid">
+          <div class="product-section__content">
+            <h2 class="product-section__eyebrow">Prefix health</h2>
+            <h3 class="product-section__title">
+              Per-prefix heartbeat for your data flows
+            </h3>
+            <p class="product-section__body">
+              For critical prefixes, BucketPulse shows freshness intervals,
+              staleness thresholds, event history, and age distributions so you
+              know exactly how the data is behaving&mdash;and when something
+              goes off the rails.
+            </p>
+            <ul class="product-section__bullets">
+              <li>
+                Define freshness thresholds (expected, warning, critical) for
+                key prefixes.
+              </li>
+              <li>
+                Track staleness as the percentage of objects older than your
+                chosen thresholds.
+              </li>
+              <li>
+                Review recent alerts with the underlying metrics that triggered
+                each condition.
+              </li>
+            </ul>
+          </div>
+
+          <div class="product-section__visual">
+            <figure class="product-shot-frame">
+              <img
+                src="assets/product-prefix-health.png"
+                alt="BucketPulse buckets overview showing bucket health, prefixes, and alerts"
+                class="product-shot"
+              />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Alert feed -->
+      <section id="alerts" class="section section--alt product-section">
+        <div class="container product-section__grid">
+          <div class="product-section__content">
+            <h2 class="product-section__eyebrow">Alert feed</h2>
+            <h3 class="product-section__title">
+              One alert stream for S3 anomalies
+            </h3>
+            <p class="product-section__body">
+              Instead of grepping logs or skimming Athena outputs, browse all
+              freshness and staleness alerts in a single table with powerful
+              filters. Perfect for on-call, incident reviews, and weekly
+              reliability check-ins.
+            </p>
+            <ul class="product-section__bullets">
+              <li>
+                Filter by severity, alert type, bucket, prefix, and time range.
+              </li>
+              <li>
+                Expand any alert to see the raw metrics, thresholds, and time
+                window involved.
+              </li>
+              <li>
+                Deep link back to the relevant bucket or prefix health views for
+                root-cause analysis.
+              </li>
+            </ul>
+          </div>
+
+          <div class="product-section__visual">
+            <figure class="product-shot-frame">
+              <img
+                src="assets/product-alerts.png"
+                alt="BucketPulse buckets overview showing bucket health, prefixes, and alerts"
+                class="product-shot"
+              />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Explorer -->
+      <section id="explorer" class="section product-section">
+        <div class="container product-section__grid">
+          <div class="product-section__content">
+            <h2 class="product-section__eyebrow">Inventory explorer</h2>
+            <h3 class="product-section__title">
+              Answer “what’s in this prefix?” without writing SQL
+            </h3>
+            <p class="product-section__body">
+              Use the Explorer to filter objects by size, age, storage class,
+              and tags on top of S3 Metadata Tables. Answer ad-hoc questions
+              about what&rsquo;s actually in a bucket or prefix without opening
+              a query editor.
+            </p>
+            <ul class="product-section__bullets">
+              <li>
+                Start with bucket and prefix filters to scope your search.
+              </li>
+              <li>
+                Narrow results by size and age ranges, storage class, and tag
+                key/value pairs.
+              </li>
+              <li>
+                Browse results in a paginated table, ready to feed into your
+                next workflow or investigation.
+              </li>
+            </ul>
+          </div>
+
+          <div class="product-section__visual">
+            <figure class="product-shot-frame">
+              <img
+                src="assets/product-explorer.png"
+                alt="BucketPulse buckets overview showing bucket health, prefixes, and alerts"
+                class="product-shot"
+              />
+            </figure>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
