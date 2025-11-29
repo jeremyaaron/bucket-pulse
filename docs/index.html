@@ -1,131 +1,792 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>BucketPulse | S3 Freshness & Health</title>
-  <style>
-    :root {
-      --bg: #0f172a;
-      --card: #111827;
-      --muted: #9ca3af;
-      --text: #e5e7eb;
-      --accent: #7c3aed;
-      --accent-soft: rgba(124,58,237,0.12);
-      --border: #1f2937;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at 20% 20%, rgba(124,58,237,0.08), transparent 30%), radial-gradient(circle at 80% 0%, rgba(59,130,246,0.08), transparent 25%), var(--bg);
-      color: var(--text);
-    }
-    .shell { max-width: 1100px; margin: 0 auto; padding: 32px 20px 64px; }
-    header { display:flex; align-items:center; justify-content:space-between; gap:16px; }
-    .brand { display:flex; align-items:center; gap:12px; }
-    .brand img { width:42px; height:42px; }
-    h1 { margin:0; font-size:32px; }
-    h2 { margin:12px 0 6px; }
-    p { margin:0 0 10px; color: var(--muted); line-height:1.6; }
-    .pill { display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border-radius:999px; background: var(--accent-soft); color: var(--text); border:1px solid var(--accent); font-weight:600; }
-    .cta { display:inline-flex; align-items:center; gap:8px; padding:12px 16px; border-radius:12px; background: var(--accent); color:#fff; text-decoration:none; font-weight:600; box-shadow:0 10px 30px rgba(124,58,237,0.3); }
-    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; margin:24px 0; }
-    .card { background: var(--card); border:1px solid var(--border); border-radius:16px; padding:18px; box-shadow:0 15px 30px rgba(0,0,0,0.18); }
-    .list { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; }
-    .list li { display:flex; gap:10px; align-items:flex-start; }
-    .dot { width:10px; height:10px; border-radius:50%; background: var(--accent); margin-top:7px; }
-    .screens h3 { margin:0 0 4px; }
-    footer { margin-top:30px; color: var(--muted); font-size:14px; }
-    .meta { display:flex; gap:10px; flex-wrap:wrap; }
-    code { background: #1f2937; padding:2px 6px; border-radius:6px; color:#c4b5fd; }
-  </style>
-</head>
-<body>
-  <div class="shell">
-    <header>
-      <div class="brand">
-        <img src="https://raw.githubusercontent.com/your-org/your-repo/main/assets/bucketpulse-logo.svg" alt="BucketPulse logo">
-        <div>
-          <h1>BucketPulse</h1>
-          <p>Near real-time S3 freshness, staleness, and inventory insights.</p>
+  <head>
+    <meta charset="UTF-8" />
+    <title>BucketPulse</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand">
+          <div class="brand__logo-placeholder"></div>
+          <span class="brand__name">BucketPulse</span>
+        </div>
+        <nav class="main-nav">
+          <a href="#hero">Home</a>
+          <a href="#why">Why BucketPulse</a>
+          <a href="#ui">Product</a>
+          <a href="#how">Architecture</a>
+          <a href="#personas">Use cases</a>
+          <a href="https://github.com/" target="_blank">GitHub</a>
+        </nav>
+        <div class="header-cta">
+          <a href="#" class="btn btn--primary">Deploy with CDK</a>
         </div>
       </div>
-      <a class="cta" href="https://github.com/your-org/your-repo">View on GitHub</a>
     </header>
 
-    <div class="grid">
-      <div class="card">
-        <div class="pill">Serverless • AWS-native</div>
-        <p>Built on API Gateway, Lambda, DynamoDB, S3 Metadata Tables/Athena, and CloudFront. Auth via Cognito Hosted UI (PKCE) or external IdP.</p>
-      </div>
-      <div class="card">
-        <h2>Deploy in one command</h2>
-        <p>CDK provisions infra, generates UI runtime config (<code>env.json</code>), builds Angular, and uploads to S3/CloudFront.</p>
-      </div>
-      <div class="card">
-        <h2>Inventory + Journal aware</h2>
-        <p>Uses S3 Metadata Tables for inventory and journal metrics to compute freshness, staleness, anomalies, and alerts per prefix.</p>
-      </div>
-    </div>
+    <main>
+      <!-- 1. HERO -->
+      <section id="hero" class="section section--hero">
+        <div class="container hero">
+          <div class="hero__text">
+            <h1 class="hero-title">Give your S3 buckets a heartbeat.</h1>
 
-    <div class="card screens">
-      <h2>What you can do</h2>
-      <div class="grid">
-        <div>
-          <h3>Buckets List</h3>
-          <ul class="list">
-            <li><span class="dot"></span><div>Register buckets (prechecks metadata tables), search/filter, and see KPIs.</div></li>
-            <li><span class="dot"></span><div>Click through to bucket details and prefix health.</div></li>
-          </ul>
-        </div>
-        <div>
-          <h3>Bucket Detail</h3>
-          <ul class="list">
-            <li><span class="dot"></span><div>View status, KPIs, recent alerts.</div></li>
-            <li><span class="dot"></span><div>Manage tracked prefixes via modal with validation.</div></li>
-          </ul>
-        </div>
-        <div>
-          <h3>Prefix Health</h3>
-          <ul class="list">
-            <li><span class="dot"></span><div>Status pill/reason, freshness & staleness thresholds, recent alerts.</div></li>
-            <li><span class="dot"></span><div>Evaluation history timeline with pagination; edit prefix thresholds.</div></li>
-          </ul>
-        </div>
-        <div>
-          <h3>Alerts</h3>
-          <ul class="list">
-            <li><span class="dot"></span><div>Filter by severity/type/bucket/prefix/date; paginate results.</div></li>
-            <li><span class="dot"></span><div>Severity pills, resolved flag, links back to prefix health.</div></li>
-          </ul>
-        </div>
-        <div>
-          <h3>Explorer</h3>
-          <ul class="list">
-            <li><span class="dot"></span><div>Filter inventory by bucket/prefix, size/age ranges, storage class, and tags.</div></li>
-            <li><span class="dot"></span><div>See object summaries and open details modal (metadata, tags, copy S3 URI/ETag).</div></li>
-          </ul>
-        </div>
-      </div>
-    </div>
+            <p class="hero-subtitle">
+              BucketPulse turns S3 Metadata Tables into a live health dashboard
+              for your buckets and prefixes&mdash;freshness, staleness, and
+              anomalies in one AWS-native view.
+            </p>
 
-    <div class="card">
-      <h2>How it works</h2>
-      <ul class="list">
-        <li><span class="dot"></span><div>Aggregation Lambda queries S3 Metadata Tables (inventory + journal) to compute prefix health.</div></li>
-        <li><span class="dot"></span><div>Alerts stored in DynamoDB; optional SNS topic for fanout.</div></li>
-        <li><span class="dot"></span><div>UI loads runtime config from <code>env.json</code> (API base, auth domain, client id, redirect).</div></li>
-      </ul>
-    </div>
+            <div class="hero-cta">
+              <a href="#cta" class="btn btn--primary"> Deploy with CDK </a>
+              <a
+                href="https://github.com/jeremyaaron/bucket-pulse"
+                target="_blank"
+                rel="noreferrer"
+                class="btn btn--ghost"
+              >
+                View on GitHub
+              </a>
+            </div>
 
-    <footer>
-      <div class="meta">
-        <span>Angular + CDK + S3 Metadata Tables</span>
-        <span>Auth: Cognito Hosted UI (PKCE)</span>
-        <span>Deploy: ./scripts/deploy.sh</span>
+            <div class="hero-trust">
+              <span class="hero-pill">AWS-native</span>
+              <span class="hero-pill">100% serverless</span>
+              <span class="hero-pill">Powered by S3 Metadata Tables</span>
+            </div>
+          </div>
+
+          <div class="hero__visual">
+            <div class="hero-card">
+              <div class="hero-card__glow"></div>
+              <img
+                src="assets/hero-buckets.png"
+                alt="BucketPulse buckets overview showing bucket health and alerts"
+                class="hero-card__image"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. WHY BUCKETPULSE -->
+      <section id="why" class="section section--alt">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">Why S3 needs a heartbeat</h2>
+            <p class="section-subtitle">
+              S3 will happily store anything you throw at it, but it won’t tell
+              you whether your data flows are healthy. BucketPulse turns cold
+              inventory metadata into live signals&mdash;showing which buckets
+              are active, which prefixes are going quiet, and where data is
+              silently aging out of relevance.
+            </p>
+          </div>
+
+          <div class="grid grid--three">
+            <article class="feature-card">
+              <div class="feature-card__icon">
+                <!-- inline SVG goes here later -->
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <!-- Bucket rim -->
+                  <path
+                    d="M8 7H16"
+                    stroke="#e5e7eb"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <!-- Bucket sides -->
+                  <path
+                    d="M9 7V15.5"
+                    stroke="#e5e7eb"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M15 7V15.5"
+                    stroke="#e5e7eb"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <!-- Bucket base -->
+                  <path
+                    d="M9 15.5H15"
+                    stroke="#e5e7eb"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <!-- Stream waveform cutting through the bucket -->
+                  <path
+                    d="M6.5 11.5
+                      C7.2 10.9 7.8 10.9 8.5 11.5
+                      C9.2 12.1 9.8 12.1 10.5 11.5
+                      C11.2 10.9 11.8 10.9 12.5 11.5
+                      C13.2 12.1 13.8 12.1 14.5 11.5
+                      C15.2 10.9 15.8 10.9 16.5 11.5"
+                    stroke="#38bdf8"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <h3 class="feature-card__title">
+                See S3 as a stream, not a graveyard
+              </h3>
+              <p class="feature-card__body">
+                S3 will store petabytes of data without blinking&mdash;but it
+                won&rsquo;t tell you what&rsquo;s flowing <em>right now</em>.
+                BucketPulse shows which prefixes are actively receiving events,
+                which have gone quiet, and where data is slowly aging into cold
+                storage. Instead of a static object listing, you get a live view
+                of how your data is actually moving.
+              </p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-card__icon">
+                <!-- inline SVG goes here later -->
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <!-- Bell outline -->
+                  <path
+                    d="M12 4
+                      C9.79086 4 8 5.79086 8 8
+                      V9.2
+                      C8 10.1 7.8 11 7.4 11.8
+                      L6.3 13.8
+                      C6.0 14.4 6.4 15 7.1 15
+                      H16.9
+                      C17.6 15 18.0 14.4 17.7 13.8
+                      L16.6 11.8
+                      C16.2 11.0 16 10.1 16 9.2
+                      V8
+                      C16 5.79086 14.2091 4 12 4Z"
+                    stroke="#e5e7eb"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+
+                  <!-- Bell base -->
+                  <path
+                    d="M9 16H15"
+                    stroke="#e5e7eb"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+
+                  <!-- Clapper -->
+                  <path
+                    d="M12 16.5
+                      C11.7 17.3 11.8 18 12 18.3
+                      C12.2 18.6 12.8 18.6 13 18.3"
+                    stroke="#e5e7eb"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+
+                  <!-- Pulse / signal waveform across the bell -->
+                  <path
+                    d="M7 11.5
+                      L8.2 12.9
+                      L9.3 10.4
+                      L10.7 14.5
+                      L11.8 12
+                      L12.9 13.8
+                      L14.1 12.3
+                      L16 13.5"
+                    stroke="#38bdf8"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+
+              <h3 class="feature-card__title">
+                Answer the on-call questions in seconds
+              </h3>
+              <p class="feature-card__body">
+                &ldquo;Has data stopped flowing?&rdquo; &ldquo;Is this prefix
+                still active?&rdquo; &ldquo;What changed in the last
+                hour?&rdquo; BucketPulse turns S3 Metadata Tables into clear
+                freshness and staleness signals so you can answer on-call
+                questions without diving into Athena, CloudWatch, or ad-hoc
+                scripts. The next time something looks off, you&rsquo;ll know
+                where to look first.
+              </p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-card__icon">
+                <!-- inline SVG goes here later -->
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <!-- Center service block -->
+                  <rect
+                    x="9"
+                    y="6.5"
+                    width="6"
+                    height="6"
+                    rx="1.2"
+                    stroke="#e5e7eb"
+                    stroke-width="1.6"
+                  />
+
+                  <!-- Left service block -->
+                  <rect
+                    x="4"
+                    y="11.5"
+                    width="6"
+                    height="6"
+                    rx="1.2"
+                    stroke="#e5e7eb"
+                    stroke-width="1.6"
+                  />
+
+                  <!-- Right service block -->
+                  <rect
+                    x="14"
+                    y="11.5"
+                    width="6"
+                    height="6"
+                    rx="1.2"
+                    stroke="#e5e7eb"
+                    stroke-width="1.6"
+                  />
+
+                  <!-- Accent connections between blocks -->
+                  <path
+                    d="M10 11.5 L7 13.5"
+                    stroke="#38bdf8"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M14 11.5 L17 13.5"
+                    stroke="#38bdf8"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <h3 class="feature-card__title">
+                Built entirely on AWS-native services
+              </h3>
+              <p class="feature-card__body">
+                BucketPulse runs where your data already lives. It&rsquo;s
+                deployed with CDK and stitched together from AWS-native building
+                blocks&mdash;API Gateway, Lambda, DynamoDB, Athena, and S3
+                Metadata Tables. No agents, sidecars, or extra clusters to
+                manage. You keep full control in your own account, with a UI
+                that&rsquo;s just a thin lens over services you already trust.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. UI OVERVIEW -->
+      <section id="ui" class="section">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">A control tower for your S3 prefixes</h2>
+            <p class="section-subtitle">
+              BucketPulse gives you a single lens into how your S3 data is
+              behaving&mdash;from high-level bucket health down to individual
+              prefixes and objects. Browse bucket status, inspect prefix
+              freshness and staleness, scan alerts, or dive into inventory with
+              filters instead of hand-written Athena queries.
+            </p>
+          </div>
+
+          <div class="grid grid--two">
+            <!-- Buckets overview -->
+            <article class="ui-tile">
+              <div class="ui-tile__icon">
+                <!-- TODO: icon e.g. stacked buckets / grid -->
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <!-- Top bucket -->
+                  <rect
+                    x="5"
+                    y="4.5"
+                    width="6"
+                    height="5"
+                    rx="1.2"
+                    stroke="#e5e7eb"
+                    stroke-width="1.6"
+                  />
+                  <path
+                    d="M5 6.5H11"
+                    stroke="#e5e7eb"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  />
+
+                  <!-- Bottom-left bucket -->
+                  <rect
+                    x="5"
+                    y="13.5"
+                    width="6"
+                    height="6"
+                    rx="1.2"
+                    stroke="#e5e7eb"
+                    stroke-width="1.6"
+                  />
+                  <path
+                    d="M5 15.5H11"
+                    stroke="#e5e7eb"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  />
+
+                  <!-- Bottom-right bucket -->
+                  <rect
+                    x="13"
+                    y="10.5"
+                    width="6"
+                    height="6"
+                    rx="1.2"
+                    stroke="#e5e7eb"
+                    stroke-width="1.6"
+                  />
+                  <path
+                    d="M13 12.5H19"
+                    stroke="#e5e7eb"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  />
+
+                  <!-- Accent connections -->
+                  <path
+                    d="M8 9.5L8 13.5"
+                    stroke="#38bdf8"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M11 8L13 11"
+                    stroke="#38bdf8"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </div>
+              <h3 class="ui-tile__title">Buckets overview</h3>
+              <p class="ui-tile__body">
+                See every monitored bucket in one place with health status,
+                region, tracked prefixes, and recent alerts. Spot which buckets
+                are healthy and which need attention at a glance.
+              </p>
+              <a href="/product#buckets" class="ui-tile__link">
+                See bucket views →
+              </a>
+            </article>
+
+            <!-- Prefix health -->
+            <article class="ui-tile">
+              <div class="ui-tile__icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <!-- Folder / prefix shape -->
+                  <path
+                    d="M5 8.5
+       C5 7.67157 5.67157 7 6.5 7H10
+       L11.5 8.5H17.5
+       C18.3284 8.5 19 9.17157 19 10V16.5
+       C19 17.3284 18.3284 18 17.5 18H6.5
+       C5.67157 18 5 17.3284 5 16.5V8.5Z"
+                    stroke="#e5e7eb"
+                    stroke-width="1.6"
+                    stroke-linejoin="round"
+                  />
+
+                  <!-- Heartbeat line -->
+                  <path
+                    d="M7 13.5
+       L8.4 13.5
+       L9.2 11.5
+       L10.4 15
+       L11.4 12.8
+       L12.4 14.3
+       L13.3 13
+       L15 13.5"
+                    stroke="#38bdf8"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <h3 class="ui-tile__title">Prefix health</h3>
+              <p class="ui-tile__body">
+                Drill into a single prefix to understand freshness and staleness
+                over time: expected arrival intervals, last event timestamps,
+                age distributions, and recent anomalies in one focused view.
+              </p>
+              <a href="/product#prefix-health" class="ui-tile__link">
+                Explore prefix health →
+              </a>
+            </article>
+
+            <!-- Alerts -->
+            <article class="ui-tile">
+              <div class="ui-tile__icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <!-- Bell body -->
+                  <path
+                    d="M12 5
+       C9.79086 5 8 6.79086 8 9
+       V10.2
+       C8 11.1 7.8 12 7.4 12.8
+       L6.6 14.3
+       C6.2 15 6.7 15.9 7.5 15.9
+       H16.5
+       C17.3 15.9 17.8 15 17.4 14.3
+       L16.6 12.8
+       C16.2 12 16 11.1 16 10.2
+       V9
+       C16 6.79086 14.2091 5 12 5Z"
+                    stroke="#e5e7eb"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+
+                  <!-- Bell base -->
+                  <path
+                    d="M9 16.5H15"
+                    stroke="#e5e7eb"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  />
+
+                  <!-- Clapper -->
+                  <path
+                    d="M12 16.8
+       C11.7 17.5 11.8 18.1 12 18.4
+       C12.2 18.7 12.8 18.7 13 18.4"
+                    stroke="#e5e7eb"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+
+                  <!-- Accent: alert spark / ping -->
+                  <path
+                    d="M17.5 7.2
+       L18.8 6
+       M18.2 8.7
+       L19.8 9.1
+       M16.8 5.6
+       L17.2 4"
+                    stroke="#38bdf8"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </div>
+              <h3 class="ui-tile__title">Alert feed</h3>
+              <p class="ui-tile__body">
+                Browse a centralized stream of freshness and staleness alerts,
+                filtered by severity, type, bucket, prefix, and time range.
+                Perfect for on-call reviews and incident follow-up.
+              </p>
+              <a href="/product#alerts" class="ui-tile__link">
+                View alerts experience →
+              </a>
+            </article>
+
+            <!-- Explorer -->
+            <article class="ui-tile">
+              <div class="ui-tile__icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <!-- List / inventory panel -->
+                  <rect
+                    x="4.5"
+                    y="5.5"
+                    width="9"
+                    height="11"
+                    rx="1.4"
+                    stroke="#e5e7eb"
+                    stroke-width="1.6"
+                  />
+                  <path
+                    d="M7 8H11"
+                    stroke="#e5e7eb"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M7 10.5H11"
+                    stroke="#e5e7eb"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M7 13H10"
+                    stroke="#e5e7eb"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  />
+
+                  <!-- Magnifying glass -->
+                  <circle
+                    cx="15.5"
+                    cy="14.5"
+                    r="2.7"
+                    stroke="#38bdf8"
+                    stroke-width="1.6"
+                  />
+                  <path
+                    d="M17.4 16.4L19 18"
+                    stroke="#38bdf8"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </div>
+              <h3 class="ui-tile__title">Inventory explorer</h3>
+              <p class="ui-tile__body">
+                Answer &ldquo;what&rsquo;s actually in this prefix?&rdquo;
+                without writing SQL. Filter objects by size, age, storage class,
+                and tags on top of S3 Metadata Tables, then inspect results in a
+                paginated table.
+              </p>
+              <a href="/product#explorer" class="ui-tile__link">
+                Try the explorer view →
+              </a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. HOW IT WORKS -->
+      <section id="how" class="section section--alt">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">How BucketPulse works under the hood</h2>
+            <p class="section-subtitle">
+              BucketPulse sits on top of S3 Metadata Tables and a small set of
+              serverless building blocks. S3 keeps your inventory and journal
+              tables up to date, a scheduled Lambda uses Athena to crunch
+              freshness and staleness metrics, and a lightweight API serves
+              those results to the BucketPulse UI. No agents, no custom
+              daemons&mdash;just metadata in, health signals out.
+            </p>
+          </div>
+
+          <div class="steps">
+            <!-- Step 1 -->
+            <article class="step">
+              <div class="step__badge">1</div>
+              <div class="step-card">
+                <h3 class="step-card__title">Ingest: S3 Metadata Tables</h3>
+                <p class="step-card__body">
+                  S3 continuously maintains inventory and journal tables for
+                  your buckets. BucketPulse reads these managed
+                  tables&mdash;never your raw objects&mdash;as the source of
+                  truth for what&rsquo;s changing.
+                </p>
+              </div>
+            </article>
+
+            <!-- Step 2 -->
+            <article class="step">
+              <div class="step__badge">2</div>
+              <div class="step-card">
+                <h3 class="step-card__title">Compute: Athena + Lambda</h3>
+                <p class="step-card__body">
+                  A scheduled Lambda runs Athena queries over inventory and
+                  journal data to compute per-prefix freshness, staleness, age
+                  histograms, and anomalies. Results are written into DynamoDB
+                  for fast reads.
+                </p>
+              </div>
+            </article>
+
+            <!-- Step 3 -->
+            <article class="step">
+              <div class="step__badge">3</div>
+              <div class="step-card">
+                <h3 class="step-card__title">Present: API + UI</h3>
+                <p class="step-card__body">
+                  API Gateway exposes the aggregated metrics to the BucketPulse
+                  UI, which renders bucket lists, prefix health, alerts, and
+                  explorer views&mdash;all backed by AWS-native services in your
+                  own account.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. PERSONAS / FOR YOUR TEAM -->
+      <section id="personas" class="section">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">Built for the teams who live in S3</h2>
+            <p class="section-subtitle">
+              Whether you&rsquo;re shipping data pipelines, running the
+              platform, or keeping an eye on governance, BucketPulse gives each
+              team a clear view of how S3 is behaving. Data engineers see
+              pipeline health, SREs see operational signals, and analytics teams
+              see where data is aging and how fast it&rsquo;s growing.
+            </p>
+          </div>
+
+          <div class="grid grid--three">
+            <!-- Data engineers -->
+            <article class="persona-card">
+              <h3 class="persona-card__title">Data engineers</h3>
+              <p class="persona-card__tagline">
+                See pipeline health in the place your data lands.
+              </p>
+              <ul class="persona-card__list">
+                <li>
+                  Spot prefixes that have gone quiet against their expected
+                  arrival intervals.
+                </li>
+                <li>
+                  Confirm that new tables and exports are actually landing in
+                  the right buckets.
+                </li>
+                <li>
+                  Use the explorer to answer &ldquo;what&rsquo;s in this
+                  prefix?&rdquo; without writing Athena queries.
+                </li>
+              </ul>
+            </article>
+
+            <!-- Platform & SRE -->
+            <article class="persona-card">
+              <h3 class="persona-card__title">Platform &amp; SRE</h3>
+              <p class="persona-card__tagline">
+                Treat S3 like a first-class production dependency.
+              </p>
+              <ul class="persona-card__list">
+                <li>
+                  Track freshness and staleness for critical buckets alongside
+                  your other service dashboards.
+                </li>
+                <li>
+                  Use alerts as early warning signals for broken jobs, throttled
+                  writers, or misconfigured sinks.
+                </li>
+                <li>
+                  Keep everything AWS-native&mdash;no agents, sidecars, or extra
+                  clusters to operate.
+                </li>
+              </ul>
+            </article>
+
+            <!-- Analytics & governance -->
+            <article class="persona-card">
+              <h3 class="persona-card__title">Analytics &amp; governance</h3>
+              <p class="persona-card__tagline">
+                Understand where your data lives, and how it&rsquo;s aging.
+              </p>
+              <ul class="persona-card__list">
+                <li>
+                  See which prefixes are accumulating large amounts of 90+ day
+                  data.
+                </li>
+                <li>
+                  Identify candidates for lifecycle policies, archival tiers, or
+                  cleanup.
+                </li>
+                <li>
+                  Use inventory views to validate that key datasets are present
+                  and complete.
+                </li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. FINAL CTA -->
+      <section id="cta" class="section section--cta">
+        <div class="container cta-block">
+          <h2 class="cta-title">Ready to give S3 a heartbeat?</h2>
+          <p class="cta-subtitle">
+            Deploy BucketPulse into a sandbox account in just a few minutes with
+            CDK, and turn S3 Metadata Tables into live health signals for your
+            buckets and prefixes.
+          </p>
+          <div class="cta-actions">
+            <a href="#" class="btn btn--primary"> Deploy with CDK </a>
+            <a
+              href="https://github.com/jeremyaaron/bucket-pulse"
+              target="_blank"
+              rel="noreferrer"
+              class="btn btn--ghost"
+            >
+              View on GitHub
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span>© <span id="year"></span> BucketPulse</span>
+        <span class="footer-links">
+          <a href="#hero">Home</a>
+          <a href="#how">Architecture</a>
+          <a href="#cta">Deploy</a>
+        </span>
       </div>
     </footer>
-  </div>
-</body>
+
+    <script>
+      // Tiny helper: auto-update year
+      document.getElementById("year").textContent = new Date()
+        .getFullYear()
+        .toString();
+    </script>
+  </body>
 </html>
